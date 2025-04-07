@@ -16,41 +16,17 @@ public class StringUtils {
 
     public static void init() {
         while (!Constants.EXIT) {
-            if (unavailableSpace()) unavailableSpaceEvent();
-            else availableSpaceEvent();
-
+            startEvent();
         }
     }
 
-    private static void unavailableSpaceEvent() {
-        writeUnavailableSpaceEvent();
-        String option = scanner.nextLine();
-
-        switch (option) {
-            case "2":
-                show();
-                break;
-
-            case "3":
-                System.out.println(Constants.NAME);
-                String nameShow = scanner.nextLine();
-                showByName(nameShow);
-                break;
-
-            case "4":
-                System.out.println(Constants.NAME);
-                String nameDelete = scanner.nextLine();
-                deleteContact(nameDelete);
-                break;
-
-            case "5":
-                Constants.EXIT = true;
-                break;
+    private static void startEvent() {
+        if (unavailableSpace()) {
+            writeUnavailableSpaceEvent();
+        } else {
+            writeGreetingEvent();         // при использовании тернарного оператора тут, java почему-то ругалась на неправильный синтаксис и предлага заменить на if-else.
         }
-    }
 
-    private static void availableSpaceEvent() {
-        writeGreetingEvent();
         String option = scanner.nextLine();
 
         switch (option) {
@@ -62,24 +38,8 @@ public class StringUtils {
                 saveContact(nameSave, numberSave);
                 break;
 
-            case "2":
-                show();
-                break;
-
-            case "3":
-                System.out.println(Constants.NAME);
-                String nameShow = scanner.nextLine();
-                showByName(nameShow);
-                break;
-
-            case "4":
-                System.out.println(Constants.NAME);
-                String nameDelete = scanner.nextLine();
-                deleteContact(nameDelete);
-                break;
-
-            case "5":
-                Constants.EXIT = true;
+            default:
+                showOptionsMenu(option);
                 break;
         }
     }
@@ -103,5 +63,29 @@ public class StringUtils {
         System.out.println(Constants.OPTION_FOUR);
         System.out.println(Constants.OPTION_FIVE);
         System.out.println(Constants.FILLER);
+    }
+
+    private static void showOptionsMenu(String option) {
+        switch (option) {
+            case "2":
+                show();
+                break;
+
+            case "3":
+                System.out.println(Constants.NAME);
+                String nameShow = scanner.nextLine();
+                showByName(nameShow);
+                break;
+
+            case "4":
+                System.out.println(Constants.NAME);
+                String nameDelete = scanner.nextLine();
+                deleteContact(nameDelete);
+                break;
+
+            case "5":
+                Constants.EXIT = true;
+                break;
+        }
     }
 }
