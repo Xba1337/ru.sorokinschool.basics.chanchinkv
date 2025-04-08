@@ -66,15 +66,17 @@ public class RequestHandlerUtils {
         String[] numbers = contactsRepository.getPhoneNumbers();
 
         if (names[0] != null) {
-            int deleteIndex = searchEquals(names, nameToDelete);
-            names[deleteIndex] = null;
-            numbers[deleteIndex] = null;
 
-            contactsRepository.setNames(sort(names));
-            contactsRepository.setPhoneNumbers(sort(numbers));
-        } else {
-            System.out.println(Constants.NOT_FOUND);
-        }
+            int deleteIndex = searchEquals(names, nameToDelete);
+            if (deleteIndex != -1) {
+                names[deleteIndex] = null;
+                numbers[deleteIndex] = null;
+                contactsRepository.setNames(sort(names));
+                contactsRepository.setPhoneNumbers(sort(numbers));
+
+            } else System.out.println(Constants.NOT_FOUND);
+
+        } else System.out.println(Constants.NOT_FOUND);
     }
 
     public static void saveContact(String name, String number) {
